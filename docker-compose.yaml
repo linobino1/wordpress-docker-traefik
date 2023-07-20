@@ -104,5 +104,5 @@ services:
     restart: always
 
 volumes:
-  wordpress:
+  uploads:
   db:
