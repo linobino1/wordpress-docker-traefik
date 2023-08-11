@@ -2,6 +2,7 @@ services:
 
   wordpress:
     image: wordpress
+    user: 1000:1000
     depends_on:
       - db
     expose:
@@ -15,7 +16,7 @@ services:
         define( 'WP_HOME', 'https://${DOMAIN}' );
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/var/www/html:rw
     labels:
       - traefik.enable=true
       - traefik.http.routers.wordpress.rule=(Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`))
@@ -29,6 +30,7 @@ services:
       
   wordpress-cli:
     image: wordpress:cli
+    user: 1000:1000
     depends_on:
       - db
     environment:
@@ -40,7 +42,7 @@ services:
         define( 'WP_HOME', 'https://${DOMAIN}' );
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/var/www/html:rw
     command: tail -f /dev/null
     restart: always
 
