@@ -15,7 +15,7 @@ services:
         define( 'WP_HOME', 'https://${DOMAIN}' );
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
     volumes:
-      - wp-content:/var/www/html/wp-content
+      - wordpress:/var/www/html
     labels:
       - traefik.enable=true
       - traefik.http.routers.wordpress.rule=(Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`))
@@ -25,6 +25,25 @@ services:
       - traefik.http.routers.wordpress.tls.domains[0].main=${DOMAIN}
       - traefik.http.routers.wordpress.tls.domains[0].sans=www.${DOMAIN}
       - traefik.http.routers.wordpress.middlewares=to-nonwww
+    restart: always
+      
+  wordpress-cli:
+    image: wordpress:cli
+    depends_on:
+      - db
+    networks:
+      container: wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wp
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'WP_HOME', 'https://${DOMAIN}' );
+        define( 'WP_SITEURL', 'https://${DOMAIN}' );
+    volumes:
+      - wordpress:/var/www/html
+    command: tail -f /dev/null
     restart: always
 
   db:
