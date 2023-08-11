@@ -6,7 +6,6 @@ services:
       - db
     expose:
       - 80
-    env_file: .env
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: app
