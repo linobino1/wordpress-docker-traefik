@@ -5,6 +5,7 @@ services:
     user: 1000:1000
     depends_on:
       - db
+      - redis
     expose:
       - 80
     deploy:
@@ -25,6 +26,8 @@ services:
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
         define( 'WP_MEMORY_LIMIT', '1576M' );
         define( 'WP_MAX_MEMORY_LIMIT', '2048M' );
+        define( 'WP_REDIS_HOST', 'redis' );
+        define( 'WP_REDIS_PORT', '6379' );
     volumes:
       - wordpress:/var/www/html:rw
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini 
@@ -77,6 +80,22 @@ services:
           cpus: '1'
           memory: 1024M
     restart: always
+
+  redis:
+    image: redis:6
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+    # launch Redis in cache mode with :
+    #  - max memory up to 50% of your RAM if needed (--maxmemory 512mb)
+    #  - deleting oldest data when max memory is reached (--maxmemory-policy allkeys-lru)
+    entrypoint: redis-server --maxmemory 1024mb -maxmemory-policy allkeys-lru
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
