@@ -8,9 +8,9 @@ services:
       - 80
     environment:
       WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: app
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_DB_NAME: wp
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_CONFIG_EXTRA: |
         define( 'WP_HOME', 'https://${DOMAIN}' );
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
@@ -33,7 +33,7 @@ services:
       - 3306
     environment:
       MYSQL_DATABASE: wp
-      MYSQL_USER: app
+      MYSQL_USER: wp
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
