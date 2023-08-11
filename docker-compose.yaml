@@ -31,8 +31,6 @@ services:
     image: wordpress:cli
     depends_on:
       - db
-    networks:
-      container: wordpress
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wp
