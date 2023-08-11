@@ -11,10 +11,10 @@ services:
       resources:
         limits:
           cpus: '2'
-          memory: 3076M
+          memory: 2048M
         reservations:
           cpus: '1'
-          memory: 2048M
+          memory: 1024M
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wp
@@ -23,8 +23,8 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define( 'WP_HOME', 'https://${DOMAIN}' );
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
-        define( 'WP_MEMORY_LIMIT', '2560M' );
-        define( 'WP_MAX_MEMORY_LIMIT', '3076M' );
+        define( 'WP_MEMORY_LIMIT', '1576M' );
+        define( 'WP_MAX_MEMORY_LIMIT', '2048M' );
     volumes:
       - wordpress:/var/www/html:rw
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini 
@@ -68,6 +68,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       - db:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2048M
+        reservations:
+          cpus: '1'
+          memory: 1024M
     restart: always
 
   phpmyadmin:
