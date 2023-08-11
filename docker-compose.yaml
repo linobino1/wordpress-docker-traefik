@@ -125,5 +125,5 @@ services:
     restart: always
 
 volumes:
-  wp-content:
+  wordpress:
   db:
