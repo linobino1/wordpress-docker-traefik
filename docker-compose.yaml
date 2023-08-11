@@ -23,6 +23,8 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define( 'WP_HOME', 'https://${DOMAIN}' );
         define( 'WP_SITEURL', 'https://${DOMAIN}' );
+        define( 'WP_MEMORY_LIMIT', '1024M' );
+        define( 'WP_MAX_MEMORY_LIMIT', '1024M' );
     volumes:
       - wordpress:/var/www/html:rw
       - ./php.ini:/usr/local/etc/php/conf.d/php.ini 
