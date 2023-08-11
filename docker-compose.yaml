@@ -10,10 +10,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1
+          cpus: '2'
           memory: 2048M
         reservations:
-          cpus: 1
+          cpus: '1'
           memory: 1024M
     environment:
       WORDPRESS_DB_HOST: db
