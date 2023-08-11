@@ -7,6 +7,14 @@ services:
       - db
     expose:
       - 80
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 2048M
+        reservations:
+          cpus: 1
+          memory: 1024M
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: wp
