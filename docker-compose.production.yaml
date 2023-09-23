@@ -52,19 +52,13 @@ services:
       - traefik.http.routers.wp.tls.certresolver=letsencrypt
       - traefik.http.routers.wp.tls.domains[0].main=${DOMAIN}
       - traefik.http.routers.wp.tls.domains[0].sans=www.${DOMAIN}
-
-      # Redirect all HTTP traffic to HTTPS
-      - traefik.http.middlewares.wp-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.wp-to-https.rule=HostRegexp(`{host:.+}`)
-      - traefik.http.middlewares.wp-to-https.entrypoints=web
-      - traefik.http.routers.wp.middlewares=wp-to-https
+      - traefik.docker.network=traefik
 
       # Redirect all www to non-www middleware
       - "traefik.http.middlewares.wp-to-nonwww.redirectregex.regex=^https?://www\\.${DOMAIN}(.*)"
       - "traefik.http.middlewares.wp-to-nonwww.redirectregex.replacement=https://${DOMAIN}$${1}"
       - traefik.http.middlewares.wp-to-nonwww.redirectregex.permanent=false
       - traefik.http.routers.wp.middlewares=wp-to-nonwww
-        
         
       # Rate limit
       - traefik.http.middlewares.wp-ratelimit.rateLimit.average=100
