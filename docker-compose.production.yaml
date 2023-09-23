@@ -82,7 +82,7 @@ services:
     volumes:
       - wordpress:/var/www/html:rw
     command: tail -f /dev/null
-    restart: always
+    restart: unless-stopped
 
   db:
     image: mysql:5.7
@@ -141,3 +141,4 @@ services:
       - traefik.http.routers.phpmyadmin.tls.certresolver=letsencrypt
       - traefik.http.routers.phpmyadmin.middlewares=phpmyadmin-auth
       - traefik.http.middlewares.phpmyadmin-auth.basicauth.users=${BACKEND_AUTH}
+    restart: unless-stopped
