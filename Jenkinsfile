@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying..'
-                sh 'docker compose up -d --build --force-recreate --remove-orphans'
+                sh 'docker compose -f docker-compose.production.yaml up -d --build --force-recreate --remove-orphans'
             }
         }
     }

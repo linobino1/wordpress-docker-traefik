@@ -5,7 +5,9 @@ Wordpress set up with docker compose and traefik proxy.
 
 A server running docker compose. The resource settings are optimized for a server with 4GB of RAM and a 4 core CPU.
 
-## Setup
+## Simple Setup 
+
+Suitable for a single wordpress site on a machine that is not used for anything else.
 
 1. Clone this repo to your machine.
 
@@ -33,3 +35,10 @@ A server running docker compose. The resource settings are optimized for a serve
     docker-compose up -d
     ```
 
+## Advanced Setup
+
+If you already have a traefik proxy running on your server or plan to use other
+applications on the same machine, you can use this setup.
+
+Same as above, but use the `docker-compose.production.yml` file. If you want to
+start traefik as well, also use the `docker-compose.traefik.yml` file.
